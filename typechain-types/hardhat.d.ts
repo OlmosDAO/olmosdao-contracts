@@ -25,13 +25,9 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IERC20__factory>;
     getContractFactory(
-      name: "SushiToken",
+      name: "OlmosDAOToken",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.SushiToken__factory>;
-    getContractFactory(
-      name: "Greeter",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.Greeter__factory>;
+    ): Promise<Contracts.OlmosDAOToken__factory>;
     getContractFactory(
       name: "PresaleERC20",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -61,15 +57,10 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.IERC20>;
     getContractAt(
-      name: "SushiToken",
+      name: "OlmosDAOToken",
       address: string,
       signer?: ethers.Signer
-    ): Promise<Contracts.SushiToken>;
-    getContractAt(
-      name: "Greeter",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.Greeter>;
+    ): Promise<Contracts.OlmosDAOToken>;
     getContractAt(
       name: "PresaleERC20",
       address: string,

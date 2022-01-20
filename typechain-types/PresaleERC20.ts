@@ -20,6 +20,7 @@ import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from "./common";
 export interface PresaleERC20Interface extends utils.Interface {
   contractName: "PresaleERC20";
   functions: {
+    "OlmosDAOToken()": FunctionFragment;
     "buyToken(uint256)": FunctionFragment;
     "buyers(address)": FunctionFragment;
     "calculateAmountTokensPurchased(uint256)": FunctionFragment;
@@ -28,7 +29,6 @@ export interface PresaleERC20Interface extends utils.Interface {
     "goal()": FunctionFragment;
     "goalPresale()": FunctionFragment;
     "mercy()": FunctionFragment;
-    "miERC20()": FunctionFragment;
     "moveTokensToTreasury()": FunctionFragment;
     "owner()": FunctionFragment;
     "priceTokenPerDai()": FunctionFragment;
@@ -37,6 +37,10 @@ export interface PresaleERC20Interface extends utils.Interface {
     "treasury()": FunctionFragment;
   };
 
+  encodeFunctionData(
+    functionFragment: "OlmosDAOToken",
+    values?: undefined
+  ): string;
   encodeFunctionData(
     functionFragment: "buyToken",
     values: [BigNumberish]
@@ -57,7 +61,6 @@ export interface PresaleERC20Interface extends utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "mercy", values?: undefined): string;
-  encodeFunctionData(functionFragment: "miERC20", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "moveTokensToTreasury",
     values?: undefined
@@ -77,6 +80,10 @@ export interface PresaleERC20Interface extends utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: "treasury", values?: undefined): string;
 
+  decodeFunctionResult(
+    functionFragment: "OlmosDAOToken",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "buyToken", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "buyers", data: BytesLike): Result;
   decodeFunctionResult(
@@ -94,7 +101,6 @@ export interface PresaleERC20Interface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "mercy", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "miERC20", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "moveTokensToTreasury",
     data: BytesLike
@@ -157,6 +163,8 @@ export interface PresaleERC20 extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
+    OlmosDAOToken(overrides?: CallOverrides): Promise<[string]>;
+
     buyToken(
       amountDaiTokens: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -189,8 +197,6 @@ export interface PresaleERC20 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    miERC20(overrides?: CallOverrides): Promise<[string]>;
-
     moveTokensToTreasury(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
@@ -210,6 +216,8 @@ export interface PresaleERC20 extends BaseContract {
 
     treasury(overrides?: CallOverrides): Promise<[string]>;
   };
+
+  OlmosDAOToken(overrides?: CallOverrides): Promise<string>;
 
   buyToken(
     amountDaiTokens: BigNumberish,
@@ -243,8 +251,6 @@ export interface PresaleERC20 extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  miERC20(overrides?: CallOverrides): Promise<string>;
-
   moveTokensToTreasury(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
@@ -265,6 +271,8 @@ export interface PresaleERC20 extends BaseContract {
   treasury(overrides?: CallOverrides): Promise<string>;
 
   callStatic: {
+    OlmosDAOToken(overrides?: CallOverrides): Promise<string>;
+
     buyToken(
       amountDaiTokens: BigNumberish,
       overrides?: CallOverrides
@@ -295,8 +303,6 @@ export interface PresaleERC20 extends BaseContract {
 
     mercy(overrides?: CallOverrides): Promise<boolean>;
 
-    miERC20(overrides?: CallOverrides): Promise<string>;
-
     moveTokensToTreasury(overrides?: CallOverrides): Promise<boolean>;
 
     owner(overrides?: CallOverrides): Promise<string>;
@@ -325,6 +331,8 @@ export interface PresaleERC20 extends BaseContract {
   };
 
   estimateGas: {
+    OlmosDAOToken(overrides?: CallOverrides): Promise<BigNumber>;
+
     buyToken(
       amountDaiTokens: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -349,8 +357,6 @@ export interface PresaleERC20 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    miERC20(overrides?: CallOverrides): Promise<BigNumber>;
-
     moveTokensToTreasury(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
@@ -372,6 +378,8 @@ export interface PresaleERC20 extends BaseContract {
   };
 
   populateTransaction: {
+    OlmosDAOToken(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     buyToken(
       amountDaiTokens: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -400,8 +408,6 @@ export interface PresaleERC20 extends BaseContract {
     mercy(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
-
-    miERC20(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     moveTokensToTreasury(
       overrides?: Overrides & { from?: string | Promise<string> }

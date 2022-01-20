@@ -17,12 +17,14 @@ import { FunctionFragment, Result, EventFragment } from "@ethersproject/abi";
 import { Listener, Provider } from "@ethersproject/providers";
 import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from "./common";
 
-export interface IERC20MetadataInterface extends utils.Interface {
-  contractName: "IERC20Metadata";
+export interface OlmosDAOTokenInterface extends utils.Interface {
+  contractName: "OlmosDAOToken";
   functions: {
     "allowance(address,address)": FunctionFragment;
+    "allowances(address,address)": FunctionFragment;
     "approve(address,uint256)": FunctionFragment;
     "balanceOf(address)": FunctionFragment;
+    "balances(address)": FunctionFragment;
     "decimals()": FunctionFragment;
     "name()": FunctionFragment;
     "symbol()": FunctionFragment;
@@ -36,10 +38,15 @@ export interface IERC20MetadataInterface extends utils.Interface {
     values: [string, string]
   ): string;
   encodeFunctionData(
+    functionFragment: "allowances",
+    values: [string, string]
+  ): string;
+  encodeFunctionData(
     functionFragment: "approve",
     values: [string, BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "balanceOf", values: [string]): string;
+  encodeFunctionData(functionFragment: "balances", values: [string]): string;
   encodeFunctionData(functionFragment: "decimals", values?: undefined): string;
   encodeFunctionData(functionFragment: "name", values?: undefined): string;
   encodeFunctionData(functionFragment: "symbol", values?: undefined): string;
@@ -57,8 +64,10 @@ export interface IERC20MetadataInterface extends utils.Interface {
   ): string;
 
   decodeFunctionResult(functionFragment: "allowance", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "allowances", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "balances", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "decimals", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "symbol", data: BytesLike): Result;
@@ -95,13 +104,13 @@ export type TransferEvent = TypedEvent<
 
 export type TransferEventFilter = TypedEventFilter<TransferEvent>;
 
-export interface IERC20Metadata extends BaseContract {
-  contractName: "IERC20Metadata";
+export interface OlmosDAOToken extends BaseContract {
+  contractName: "OlmosDAOToken";
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
 
-  interface: IERC20MetadataInterface;
+  interface: OlmosDAOTokenInterface;
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
@@ -129,6 +138,12 @@ export interface IERC20Metadata extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
+    allowances(
+      arg0: string,
+      arg1: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
     approve(
       spender: string,
       amount: BigNumberish,
@@ -136,6 +151,8 @@ export interface IERC20Metadata extends BaseContract {
     ): Promise<ContractTransaction>;
 
     balanceOf(account: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    balances(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
     decimals(overrides?: CallOverrides): Promise<[number]>;
 
@@ -165,6 +182,12 @@ export interface IERC20Metadata extends BaseContract {
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
+  allowances(
+    arg0: string,
+    arg1: string,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
   approve(
     spender: string,
     amount: BigNumberish,
@@ -172,6 +195,8 @@ export interface IERC20Metadata extends BaseContract {
   ): Promise<ContractTransaction>;
 
   balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+  balances(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
   decimals(overrides?: CallOverrides): Promise<number>;
 
@@ -201,6 +226,12 @@ export interface IERC20Metadata extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    allowances(
+      arg0: string,
+      arg1: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     approve(
       spender: string,
       amount: BigNumberish,
@@ -208,6 +239,8 @@ export interface IERC20Metadata extends BaseContract {
     ): Promise<boolean>;
 
     balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+    balances(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     decimals(overrides?: CallOverrides): Promise<number>;
 
@@ -262,6 +295,12 @@ export interface IERC20Metadata extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    allowances(
+      arg0: string,
+      arg1: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     approve(
       spender: string,
       amount: BigNumberish,
@@ -269,6 +308,8 @@ export interface IERC20Metadata extends BaseContract {
     ): Promise<BigNumber>;
 
     balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+    balances(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     decimals(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -299,6 +340,12 @@ export interface IERC20Metadata extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    allowances(
+      arg0: string,
+      arg1: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     approve(
       spender: string,
       amount: BigNumberish,
@@ -307,6 +354,11 @@ export interface IERC20Metadata extends BaseContract {
 
     balanceOf(
       account: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    balances(
+      arg0: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
